@@ -1,10 +1,11 @@
-package com.karpovich.shoppinglist.app
+package com.karpovich.shoppinglist.app.presentation.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.karpovich.shoppinglist.app.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
