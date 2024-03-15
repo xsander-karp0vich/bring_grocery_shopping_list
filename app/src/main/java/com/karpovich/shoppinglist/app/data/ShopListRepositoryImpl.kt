@@ -6,6 +6,12 @@ import com.karpovich.shoppinglist.app.domain.repository.ShopListRepository
 object ShopListRepositoryImpl: ShopListRepository {
 
     private val shopList = mutableListOf<ShopItem>()
+
+    init {
+        for (i in 0..20) {
+            shopList.add(ShopItem("Name $i", i, true))
+        }
+    }
     override fun addShopItem(shopItem: ShopItem) {
         shopList.add(shopItem)
     }
