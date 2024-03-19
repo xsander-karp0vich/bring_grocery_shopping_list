@@ -20,10 +20,17 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        setupViewModel()
     }
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        viewModel.shopList.observe(this) {
+
+        }
     }
 }

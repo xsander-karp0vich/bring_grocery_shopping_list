@@ -12,6 +12,7 @@ import com.karpovich.shoppinglist.app.domain.usecases.RemoveShopItemUseCase
 
 class MainViewModel: ViewModel() {
     private val repository = ShopListRepositoryImpl
+
     private val getShopListUseCase = GetShopListUseCase(repository)
     private val getShopItemUseCase = GetShopItemUseCase(repository)
     private val addShopItemUseCase = AddShopItemUseCase(repository)
@@ -25,5 +26,24 @@ class MainViewModel: ViewModel() {
     }
     private fun getShopList() {
         shopList.value = getShopListUseCase.getShopList()
+    }
+
+    fun addShopItem(shopItem: ShopItem) {
+        addShopItemUseCase.addShopItem(shopItem)
+    }
+
+    fun removeShopItem(shopItem: ShopItem) {
+        removeShopItemUseCase.removeShopItem(shopItem)
+        getShopList()
+    }
+
+    fun editShopItem(shopItem: ShopItem) {
+        editShopItemUseCase.editShopItem(shopItem)
+    }
+
+    fun changeEnableState(shopItem: ShopItem) {
+        val newItem = shopItem.copy(enabled = !shopItem.enabled)
+        editShopItemUseCase.editShopItem(newItem)
+        getShopList()
     }
 }
