@@ -1,10 +1,12 @@
 package com.karpovich.shoppinglist.app.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.karpovich.shoppinglist.app.domain.entities.ShopItem
 import com.karpovich.shoppinglist.app.domain.repository.ShopListRepository
 
 object ShopListRepositoryImpl: ShopListRepository {
-
+    private var shopListLD = MutableLiveData<List<ShopItem>>()
     private val shopList = mutableListOf<ShopItem>()
 
     init {
@@ -14,6 +16,7 @@ object ShopListRepositoryImpl: ShopListRepository {
     }
     override fun addShopItem(shopItem: ShopItem) {
         shopList.add(shopItem)
+        updateList()
     }
 
     override fun editShopItem(shopItem: ShopItem) {
@@ -28,12 +31,16 @@ object ShopListRepositoryImpl: ShopListRepository {
         } ?: throw RuntimeException("Element with id $shopItemId not found")
     }
 
-    override fun getShopList(): List<ShopItem> {
-        return shopList.toList()
+    override fun getShopList(): LiveData<List<ShopItem>> {
+        return shopListLD
     }
 
     override fun removeShopItem(shopItem: ShopItem) {
         shopList.remove(shopItem)
+        updateList()
     }
 
+    private fun updateList() {
+        shopListLD.value = shopList.toList()
+    }
 }
